@@ -44,7 +44,8 @@ INSTALLED_FRAMEWORKS = [
     "django.contrib.staticfiles",
 ]
 LOCAL_APPS = [
-]
+    "courses",
+    ]
 
 INSTALLED_APPS = INSTALLED_FRAMEWORKS + LOCAL_APPS
 MIDDLEWARE = [
@@ -131,6 +132,9 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # папка, куди збериться всі файли під час: python manage.py collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
