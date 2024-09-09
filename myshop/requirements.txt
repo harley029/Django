@@ -1,0 +1,14 @@
+asgiref
+Django
+sqlparse
+Pillow
+flower
+celery
+stripe
+WeasyPrint
+redis
+django-rosetta
+django-parler
+django-localflavor
+django-environ
+psycopg2-binary

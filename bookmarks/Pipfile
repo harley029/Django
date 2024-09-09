@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "3.8.1"
+django = "4.0"
+pillow = "10.4.0"
+sqlparse = "0.5.1"
+social-auth-app-django = {ref = "20fabcd7bd9a8a41910bc5c8ed1bd6ef2263b328", git = "git+https://github.com/python-social-auth/social-app-django.git"}
+django-extensions = {ref = "25a41d8a3ecb24c009c5f4cac6010a091a3c91c8", git = "git+https://github.com/django-extensions/django-extensions.git"}
+werkzeug = "3.0.3"
+pyopenssl = "24.2.1"
+requests = "2.32.3"
+easy-thumbnails = "*"
+django-debug-toolbar = "4.3.0"
+redis = "5.0.8"
+django-environ = "0.11.2"
+psycopg2-binary = "2.9.9"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

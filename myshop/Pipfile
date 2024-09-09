@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "*"
+django = "*"
+sqlparse = "*"
+pillow = "*"
+flower = "*"
+celery = "*"
+stripe = "*"
+redis = "*"
+django-rosetta = "*"
+django-parler = "*"
+django-localflavor = "*"
+django-environ = "*"
+psycopg2-binary = "*"
+weasyprint = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
