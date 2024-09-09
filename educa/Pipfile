@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "*"
+django = "*"
+pillow = "*"
+sqlparse = "*"
+django-braces = "*"
+django-embed-video = "*"
+pymemcache = "*"
+django-debug-toolbar = "*"
+redis = "*"
+django-redisboard = "*"
+djangorestframework = "*"
+requests = "*"
+channels = "*"
+channels-redis = "*"
+uwsgi = "*"
+daphne = "*"
+psycopg2-binary = "*"
+django-environ = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
