@@ -19,8 +19,8 @@
   "model": "courses.subject",
   "pk": 3,
   "fields": {
-    "title": "Phisics",
-    "slug": "phisics"
+    "title": "Physics",
+    "slug": "physics"
   }
 },
 {

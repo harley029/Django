@@ -4,16 +4,16 @@
   <head>
     <meta charset="utf-8" />
     <title>{% block title %}Educa{% endblock %}</title>
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
   </head>
   <body>
     <div id="header">
       <a href="/" class="logo">Educa</a>
       <ul class="menu">
         {% if request.user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Sign out</a></li>
+          <li><a href="{% url "logout" %}">Sign out</a></li>
         {% else %}
-          <li><a href="{% url 'login' %}">Sign in</a></li>
+          <li><a href="{% url "login" %}">Sign in</a></li>
         {% endif %}
       </ul>
     </div>
@@ -21,7 +21,7 @@
       {% block content %}
       {% endblock %}
     </div>
-    {% block include_js %} 
+    {% block include_js %}
     {% endblock %}
     <script>
       document.addEventListener('DOMContentLoaded', (event) => {
