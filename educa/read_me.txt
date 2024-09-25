@@ -4,6 +4,10 @@ python manage.py runserver
 docker run -it --rm --name memcached -p 11211:11211 memcached -m 64 # для использования PyMemcacheCache в качестве кеша
 docker run -it --rm --name redis -p 6379:6379 redis
 
+deployment:
+docker run -it --rm --name redis -p 6379:6379 redis
+python manage.py runserver --settings=educa.settings.local
+
 
 ----------------------------------------------------------------
 Помилка “Method Not Allowed (GET)” на сторінці виходу (logout) виникає через те, що за замовчуванням Django очікує, що вихід користувача буде виконуватися через POST-запит. Використання методу GET для цієї операції є недопустимим заради безпеки (щоб уникнути неавторизованого виходу користувача через випадковий або шкідливий GET-запит).

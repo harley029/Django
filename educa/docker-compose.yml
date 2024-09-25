@@ -1,0 +1,62 @@
+services:
+  cache:
+    image: redis:7.2.4
+    restart: always
+    volumes:
+      - ./data/cache:/data
+
+  db:
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=educa
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=8lyrMibko
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: ["./wait-for-it.sh", "db:5432", "--",
+              "uwsgi", "--ini", "/code/config/uwsgi/uwsgi.ini"]
+    restart: always
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=educa.settings.prod
+      - POSTGRES_DB=educa
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=8lyrMibko
+    depends_on:
+      - db
+      - cache
+
+  daphne:
+    build: .
+    working_dir: /code/
+    command: ["./wait-for-it.sh", "db:5432", "--",
+              "daphne", "-u", "/code/daphne.sock",
+              "educa.asgi:application"]
+    restart: always
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=educa.settings.prod
+      - POSTGRES_DB=educa
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=8lyrMibko
+    depends_on:
+      - db
+      - cache
+
+  nginx:
+    image: nginx:1.23.1
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/code
+    ports:
+      - "80:80"
+      - "443:443"

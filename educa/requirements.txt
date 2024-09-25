@@ -16,3 +16,4 @@ uwsgi
 daphne
 psycopg2-binary
 django-environ
+twisted[http2,tls]
