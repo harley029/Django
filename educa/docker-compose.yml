@@ -11,9 +11,9 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=educa
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=8lyrMibko
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
       - "5432:5432"
 
@@ -26,9 +26,9 @@ services:
       - .:/code
     environment:
       - DJANGO_SETTINGS_MODULE=educa.settings.prod
-      - POSTGRES_DB=educa
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=8lyrMibko
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     depends_on:
       - db
       - cache
@@ -37,16 +37,15 @@ services:
     build: .
     working_dir: /code/
     command: ["./wait-for-it.sh", "db:5432", "--",
-              "daphne", "-u", "/code/daphne.sock",
-              "educa.asgi:application"]
+          "daphne", "-b", "0.0.0.0", "-p", "8001", "educa.asgi:application"]
     restart: always
     volumes:
       - .:/code
     environment:
       - DJANGO_SETTINGS_MODULE=educa.settings.prod
-      - POSTGRES_DB=educa
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=8lyrMibko
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     depends_on:
       - db
       - cache
@@ -57,6 +56,7 @@ services:
     volumes:
       - ./config/nginx:/etc/nginx/templates
       - .:/code
+      - ./staticfiles:/code/staticfiles
     ports:
       - "80:80"
       - "443:443"

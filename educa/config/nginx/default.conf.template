@@ -1,11 +1,11 @@
 # входной поток для uWSGI
 upstream uwsgi_app {
-    server unix:/code/educa/uwsgi_app.sock;
+    server web:8000;  # Проксування до UWSGI через TCP
 }
 
 # входной поток для Daphne
 upstream daphne {
-    server unix:/code/daphne.sock;
+    server daphne:8001;  # Проксування до Daphne через TCP
 }
 
 server {
@@ -36,8 +36,9 @@ server {
     }
 
     location /static/ {
-        alias /code/static/;
+        alias /code/staticfiles/;
     }
+
     location /media/ {
         alias /code/media/;
     }
