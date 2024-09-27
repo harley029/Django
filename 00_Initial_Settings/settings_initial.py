@@ -1,7 +1,6 @@
-
 import os
 from pathlib import Path
-import environ  # pipenv istall django-environ
+import environ  # pipenv install django-environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,7 +10,7 @@ environ.Env.read_env(BASE_DIR / ".env")
 
 INSTALLED_FRAMEWORKS = []
 LOCAL_APPS = [
-    "core",
+    # "core",
 ]
 INSTALLED_APPS = INSTALLED_FRAMEWORKS + LOCAL_APPS
 
