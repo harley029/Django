@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView # for class views
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
+from django.db.models import Count
 
 from taggit.models import Tag
 
@@ -30,7 +31,6 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(1)
     return render(request, "blog/post/list.html", {"posts": posts, "tag": tag})
 
-
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(
         Post,
@@ -44,10 +44,20 @@ def post_detail(request, year, month, day, post):
     comments = post.comments.filter(active=True)
     # Form for users to comment
     form = CommentForm()
+    # List of similar posts
+    post_tags_ids = post.tags.values_list("id", flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+    # Get similar posts with same tags and sort by publish date (most recent first) and same_tags (most similar first)
+    similar_posts = similar_posts.annotate(same_tags=Count("tags")).order_by("-same_tags", "-publish")[:4]
     return render(
         request,
         "blog/post/detail.html",
-        {"post": post, "comments": comments, "form": form},
+        {
+            "post": post,
+            "comments": comments,
+            "form": form,
+            "similar_posts": similar_posts,
+        },
     )
 
 def post_share(request, post_id):
