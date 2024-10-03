@@ -43,12 +43,16 @@ INSTALLED_FRAMEWORKS = [
     "django.contrib.staticfiles",
 ]
 
+THIRD_PARTY_PACKAGES =[
+    "taggit",
+]
+
 LOCAL_APPS = [
     "core",
     "blog",
 ]
 
-INSTALLED_APPS = INSTALLED_FRAMEWORKS + LOCAL_APPS
+INSTALLED_APPS = INSTALLED_FRAMEWORKS + THIRD_PARTY_PACKAGES + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
