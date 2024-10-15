@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, FormView
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
@@ -145,6 +145,11 @@ class PostSearchView(FormView):
     form_class = SearchForm
 
     def get(self, request):
+        # Якщо натиснута кнопка "Cancel", перенаправляємо користувача на список постів без валідації
+        if "cancel" in request.GET:
+            return redirect("blog:post_list")  # Перенаправлення на список постів
+
+        # Якщо натиснута кнопка "Search", обробляємо форму як зазвичай
         if "query" in request.GET:
             form = self.form_class(request.GET)
             if form.is_valid():
