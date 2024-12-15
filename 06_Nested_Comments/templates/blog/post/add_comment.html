@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Add a new Comment{% endblock %}
+
+{% block content %}
+<main>
+    <div>
+        <h1>Add a Comment for "{{ post.title }}"</h1>
+        <div class="add_comment">
+            {% include "blog/post/includes/comment_form.html" with form_action_url=form_action_url %}
+        </div>
+        <br class="clear">
+    </div>
+    {% include "blog/post/includes/comment_preview.html" %}
+    {% include "blog/post/includes/comment_script.html" with redirect_url=redirect_url %}
+</main>
+{% endblock %}

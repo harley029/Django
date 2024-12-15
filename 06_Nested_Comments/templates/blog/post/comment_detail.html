@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Comment Detail{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>Published {{ post.publish }} by {{ post.author }}</p>
+{{ post.body }}
+
+<h2>Comment by
+    {% if comment.author %}
+    {{ comment.author.username }}
+    {% else %}
+    {{ comment.name }}
+    {% endif %}
+    on {{ comment.created }}
+</h2>
+<div>
+    {{ comment.body|safe }}
+</div>
+
+{% if comment.image or comment.text_file %}
+<div class="files-container">
+    {% if comment.image %}
+    <a href="{{ comment.image.url }}" data-lightbox="image-1">
+        <img src="{{ comment.image.url }}" alt="Image" class="picture_preview">
+    </a>
+    {% endif %}
+    {% if comment.text_file %}
+    <a data-fancybox data-type="ajax" data-src="{% url 'posts:text_file_view' comment.id %}" href="javascript:;"
+        class="file_link">
+        <img src="{% static 'images/text_file_icon.png' %}" alt="Text File Icon" class="file_icon">
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
+<h3>Replies:</h3>
+{% include "blog/post/includes/replies.html" with comments=replies post=post %}
+<p>
+    <a href="{% url 'posts:comment_reply' pk=post.pk parent_comment_id=comment.pk %}">Reply to this Comment</a>
+</p>
+{% endblock %}

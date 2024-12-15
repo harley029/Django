@@ -1,0 +1,37 @@
+{% load static %}
+{% for reply in comments %}
+<div style="margin-left: {{ level|default:20 }}px; border-left: 1px solid #ccc; padding-left: 10px;">
+    <p>
+        {% if reply.author %}
+        {{ reply.author.username }}
+        {% else %}
+        {{ reply.name }}
+        {% endif %}
+        on {{ reply.created }}
+    </p>
+    <div>
+        {{ reply.body|safe }}
+    </div>
+    {% if reply.image or reply.text_file %}
+    <div class="files-container">
+        {% if reply.image %}
+        <a href="{{ reply.image.url }}" data-lightbox="image-1">
+            <img src="{{ reply.image.url }}" alt="Image" class="picture_preview">
+        </a>
+        {% endif %}
+        {% if reply.text_file %}
+        <a data-fancybox data-type="ajax" data-src="{% url 'posts:text_file_view' reply.id %}" href="javascript:;"
+            class="file_link">
+            <img src="{% static 'images/text_file_icon.png' %}" alt="Text File Icon" class="file_icon">
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    <p>
+        <a href="{% url 'posts:comment_reply' pk=post.pk parent_comment_id=reply.pk %}">Reply</a>
+    </p>
+    {% if reply.replies.exists %}
+    {% include "blog/post/includes/replies.html" with comments=reply.replies.all level=level|add:20 post=post %}
+    {% endif %}
+</div>
+{% endfor %}

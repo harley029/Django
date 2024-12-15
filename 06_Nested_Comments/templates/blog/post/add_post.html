@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block title %}My blog{% endblock %}
+
+{% block content %}
+
+<main>
+    <div>
+        <h1>Add a new post</h1>
+        <div>
+            <form method="post" id="post_form" novalidate="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div>
+                    <div>
+                        <input type="submit" value="Save" name="save">
+                        <input type="submit" value="Cancel" name="cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br class="clear">
+    </div>
+</main>
+
+{% endblock %}

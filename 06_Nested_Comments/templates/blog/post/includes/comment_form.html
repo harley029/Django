@@ -1,0 +1,21 @@
+<div style="flex: 1;">
+    <form method="post" action="{{ form_action_url }}" id="comment_form" enctype="multipart/form-data" novalidate="">
+
+        <div id="toolbar">
+            <button type="button" data-tag="i">[i]</button>
+            <button type="button" data-tag="strong">[strong]</button>
+            <button type="button" data-tag="code">[code]</button>
+            <button type="button" data-tag="a">[a]</button>
+        </div>
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <div>
+                <input type="submit" value="Save" name="save">
+                <input type="submit" value="Cancel" name="cancel">
+            </div>
+        </div>
+    </form>
+    <div id="form-errors"></div>
+</div>

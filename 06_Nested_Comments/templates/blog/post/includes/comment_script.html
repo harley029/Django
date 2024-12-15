@@ -1,0 +1,95 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const bodyField = document.getElementById('id_body');
+        const toolbar = document.getElementById('toolbar');
+        const previewArea = document.getElementById('comment-preview');
+        const form = document.getElementById('comment_form');
+        const errorsDiv = document.getElementById('form-errors');
+
+        function insertTag(textarea, tag) {
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end);
+            let insertText = '';
+
+            if (tag === 'a') {
+                const url = prompt('Enter the URL', 'http://');
+                if (url) {
+                    insertText = `<a href="${url}">${selectedText || 'link text'}</a>`;
+                } else {
+                    return;
+                }
+            } else {
+                insertText = `<${tag}>${selectedText}</${tag}>`;
+            }
+
+            textarea.setRangeText(insertText, start, end, 'end');
+            textarea.focus();
+            updatePreview();
+        }
+
+        function updatePreview() {
+            let content = bodyField.value;
+            if (content.trim() === '') {
+                previewArea.innerHTML = '<p><em>Your comment will appear here...</em></p>';
+            } else {
+                // HTML-теги безопасны, так как очищены на сервере
+                previewArea.innerHTML = content;
+            }
+        }
+
+        toolbar.addEventListener('click', function (event) {
+            if (event.target.tagName === 'BUTTON') {
+                const tag = event.target.getAttribute('data-tag');
+                insertTag(bodyField, tag);
+            }
+        });
+
+        bodyField.addEventListener('input', updatePreview);
+        // Инициализировать превью
+        updatePreview();
+
+        form.addEventListener('submit', function (event) {
+            const submitter = event.submitter || document.activeElement;
+            if (submitter.name === 'cancel') {
+                // Позволить форме отправиться по умолчанию
+                return;
+            }
+
+            event.preventDefault();  // Предотвратить стандартную отправку формы
+            const formData = new FormData(form);
+
+            // Отправить AJAX-запрос
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Очистить форму
+                        form.reset();
+                        // Обновляем превью
+                        updatePreview();
+                        // Перенаправить на страницу деталей поста
+                        window.location.href = "{{ redirect_url }}";
+                    } else {
+                        // Обновить капчу
+                        const captchaImg = document.querySelector('img.captcha');
+                        if (captchaImg) {
+                            captchaImg.src = captchaImg.src.split('?')[0] + '?reload=' + new Date().getTime();
+                        }
+                        // Отобразить ошибки формы
+                        errorsDiv.innerHTML = data.errors_html;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorsDiv.innerHTML = '<p>An error occurred. Please try again.</p>';
+                });
+        });
+    });
+</script>

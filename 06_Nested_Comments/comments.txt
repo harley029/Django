@@ -1,0 +1,35 @@
+1. Для контроля пустых или неверных номеров страниц:
+    1.1. Изменить представления
+        def get(self, request, *args, **kwargs):
+            posts = Post.objects.all()
+            paginator = Paginator(posts, 3)
+            page_number = request.GET.get('page', 1)
+            try:
+                posts = paginator.page(page_number)
+            except PageNotAnInteger:
+                posts = paginator.page(1)
+            except EmptyPage:
+                posts = paginator.page(paginator.num_pages)
+            return render(request, 'blog/post/list.html', {'posts': posts})
+    1.2. Изменить шаблон:
+        поменять в list.html строчку с пагинацией
+            {% include "pagination.html" with page=page_obj %}
+        на  
+            {% include "pagination.html" with page=posts %}
+
+2. Для просмотра текстовых файлов в модальном окне использовать
+    https://fancyapps.com/fancybox/
+    2.1. В хедере подключить стили:
+        <link href="{% static 'css/fancybox.css' %}" rel="stylesheet">
+   
+    2.2. В конце HTML перед </body>:
+        <script src="{% static 'js/fancybox.umd.js' %}"></script>
+        <script>
+            Fancybox.bind("[data-fancybox]", {
+                Html: {
+                    iframeAttr: {
+                        allow: "encrypted-media *; autoplay; fullscreen"
+                    }
+                }
+            }) 
+        </script>

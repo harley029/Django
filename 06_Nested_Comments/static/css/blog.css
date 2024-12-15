@@ -1,0 +1,159 @@
+body { 
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif; 
+}
+
+a { 
+    color:#00abff;
+    text-decoration:none; 
+}
+
+h1 { 
+    font-weight:normal;
+    border-bottom:1px solid #bbb;
+    padding:0 0 10px 0;
+}
+
+h2 {
+    font-weight:normal;
+    margin:30px 0 0;
+}
+
+#content { 
+    float:left;
+    width:60%;
+    padding:0 0 0 30px; 
+}
+
+#sidebar { 
+    float:right;
+    width:30%;
+    padding:10px;
+    background:#efefef; 
+    height:100%;
+}
+
+p.date { 
+    color:#ccc;
+    font-family: georgia, serif;
+    font-size: 12px;
+    font-style: italic; 
+}
+
+/* pagination */
+.pagination { 
+    margin:40px 0; 
+    font-weight:bold;
+}
+
+/* forms */
+label { 
+    float:left;
+    clear:both;
+    color:#333;
+    margin-bottom:4px; 
+}
+input, textarea { 
+    clear:both;
+    float:left;
+    margin:0 0 10px;
+    background:#ededed;
+    border:0;
+    padding:6px 10px;
+    font-size:12px;
+}
+input[type=submit] {
+    font-weight:bold;
+    background:#00abff;
+    color:#fff;
+    padding:10px 20px;
+    font-size:14px;
+    text-transform:uppercase; 
+}
+.errorlist { 
+    color:#cc0033;
+    float:left;
+    clear:both;
+    padding-left:10px; 
+}
+
+/* comments */
+.comment {
+    padding:10px;
+}
+.comment:nth-child(even) {
+    background:#efefef;
+}
+.comment .info {
+    font-weight:bold;
+    font-size:12px;
+    color:#666;
+}
+
+#toolbar {
+    margin-bottom: 10px;
+}
+
+#toolbar button {
+    margin-right: 5px;
+    padding: 5px 8px;
+    font-size: 14px;
+}
+
+.comments-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px; /* Отступ между ячейками по горизонтали и вертикали */
+}
+
+.comments-table th, .comments-table td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
+}
+
+.comments-table th {
+    background-color: #f2f2f2;
+}
+
+.picture_preview {
+    max-width: 40px; 
+    max-height: 30px;
+}
+
+.comment_in_reply {
+    display: flex; 
+    align-items: flex-start; 
+    gap: 20px;
+}
+
+.add_comment {
+    display: flex; 
+    align-items: flex-start; 
+    gap: 20px;
+}
+
+.comment_preview {
+    flex: 1; 
+    border: 1px solid #ccc; 
+    padding: 10px;
+}
+
+.files-container {
+    display: inline-block; /* или flex, если хотите гибкую верстку */
+    vertical-align: middle;
+}
+
+.files-container a {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.file_icon {
+    max-width: 40px; 
+    max-height: 30px; 
+    /* Можно при желании настроить размеры под пиктограмму файла */
+}

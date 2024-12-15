@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Reply to Comment{% endblock %}
+
+{% block content %}
+<main>
+    <div>
+        <h1>Reply to Comment by
+            {% if parent_comment.author %}
+            "{{ parent_comment.author.username }}"
+            {% else %}
+            "{{ parent_comment.name }}"
+            {% endif %}
+        </h1>
+        <div class="comment_in_reply">
+            <p>{{ parent_comment.body|safe }}</p>
+            {% include "blog/post/includes/comment_form.html" with form_action_url=form_action_url %}
+        </div>
+        <br class="clear">
+    </div>
+    {% include "blog/post/includes/comment_preview.html" %}
+    {% include "blog/post/includes/comment_script.html" with redirect_url=redirect_url %}
+</main>
+{% endblock %}

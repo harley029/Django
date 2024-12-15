@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
+    <link href="{% static 'css/fancybox.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="sidebar">
+        <h2>Actions</h2>
+        <p>
+            {% if request.user.is_authenticated %}
+            <br>
+        <form method="post" action="{% url 'accounts:logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% else %}
+        <br>
+        <a href="{% url 'accounts:login' %}">Login</a>
+        <br>
+        <a href="{% url 'accounts:register' %}">Sign in</a>
+        {% endif %}
+        <br>
+        <a href="{% url 'posts:post_list' %}">View all posts</a>
+        <br>
+        <p></p>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'posts:add_post' %}">Add a new post</a>
+        {% endif %}
+        </p>
+    </div>
+    <script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
+    <script src="{% static 'js/fancybox.umd.js' %}"></script>
+    <script>
+        Fancybox.bind("[data-fancybox]", {
+            Html: {
+                iframeAttr: {
+                    allow: "encrypted-media *; autoplay; fullscreen"
+                }
+            }
+        }) 
+    </script>
+</body>
+
+</html>
