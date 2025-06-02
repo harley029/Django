@@ -46,7 +46,9 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIAL_AUTH_FACEBOOK_KEY = env("SOCIAL_AUTH_FACEBOOK_KEY")
 SOCIAL_AUTH_FACEBOOK_SECRET = env("SOCIAL_AUTH_FACEBOOK_SECRET")
-SOCIAL_AUTH_FACEBOOK_SCOPE = env("SOCIAL_AUTH_FACEBOOK_SCOPE")
+SOCIAL_AUTH_FACEBOOK_SCOPE = env.list(
+    "SOCIAL_AUTH_FACEBOOK_SCOPE", default=["email", "public_profile"]  # type: ignore
+)
 
 SOCIAL_AUTH_TWITTER_KEY = env("SOCIAL_AUTH_TWITTER_KEY")
 SOCIAL_AUTH_TWITTER_SECRET = env("SOCIAL_AUTH_TWITTER_SECRET")
@@ -213,10 +215,10 @@ INTERNAL_IPS = [
 #     "SHOW_TEMPLATE_CONTEXT": True,
 # }
 
-# журнал консоли оболочки RunServer. Если вы видите ошибку MIME-типа, то, скорее всего, 
-# ваши файлы соотнесения MIME неверны либо нуждаются в обновлении. 
+# журнал консоли оболочки RunServer. Если вы видите ошибку MIME-типа, то, скорее всего,
+# ваши файлы соотнесения MIME неверны либо нуждаются в обновлении.
 # добавить эти строки:
 # if DEBUG:
 #     import mimetypes
-#     mimetypes.add_type('application/javascript', '.js', True) 
+#     mimetypes.add_type('application/javascript', '.js', True)
 #     mimetypes.add_type('text/css', '.css', True)

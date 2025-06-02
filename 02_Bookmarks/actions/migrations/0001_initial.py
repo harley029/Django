@@ -8,10 +8,10 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('auth', '0013_user_following'),
-        ('contenttypes', '0002_remove_content_type_name'),
-    ]
+    # dependencies = [
+    #     ('auth', '0013_user_following'),
+    #     ('contenttypes', '0002_remove_content_type_name'),
+    # ]
 
     operations = [
         migrations.CreateModel(
